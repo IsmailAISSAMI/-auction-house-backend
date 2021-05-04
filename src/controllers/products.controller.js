@@ -80,16 +80,31 @@ exports.update = async (req, res, next) => {
         const data = req.body;
         const product =  await firestore.collection('products').doc(id);
         await product.update(data);
-        const newdata = await product.get();
+        const newData = await product.get();
 
         res.send({
             message: 'Product record was updated successfuly!',
-            product: newdata.data()
+            product: newData.data()
         });        
     } catch (error) {
         res.status(400).send({
             error: 400,
             message: err.message || 'Some error occured while updating the product!',
+        });
+    }
+}
+
+exports.delete = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        await firestore.collection('products').doc(id).delete();
+        res.send({
+            message: 'The product was deleted successfuly!'
+        });
+    } catch (error) {
+        res.status(400).send({
+            error: 400,
+            message: err.message || 'Some error occured while deleting the product!',
         });
     }
 }
