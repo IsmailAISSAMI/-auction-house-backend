@@ -11,7 +11,7 @@ exports.create = async (req, res, next) => {
             message: 'Your new customer was saved successfuly!',
             customer: data
         });
-    } catch (error) {
+    } catch (err) {
         res.status(400).send({
             error: 400,
             message: err.message || 'Some error occured while creating the new customer register!',
@@ -28,7 +28,7 @@ exports.getCustomers = async (req, res, next) => {
         if(data.empty) {
             res.status(404).send({
                 error: 404,
-                message: err.message || 'No customers record was found!',
+                message: 'No customers record was found!',
             });
         }else {
             data.forEach(doc => {
@@ -48,7 +48,7 @@ exports.getCustomers = async (req, res, next) => {
             });
             res.send(customersArray);
         }
-    } catch (error) {
+    } catch (err) {
         res.status(400).send({
             error: 400,
             message: err.message || 'Some error occured while getting the customers!',
@@ -66,12 +66,12 @@ exports.getCustomer = async (req, res, next) => {
         if(!data.exists) {
             res.status(404).send({
                 error: 404,
-                message: err.message || 'Customer with the given ID not found! try again.',
+                message: 'Customer with the given ID not found! try again.',
             });
         }else {
             res.send(data.data());
         }
-    } catch (error) {
+    } catch (err) {
         res.status(400).send({
             error: 400,
             message: err.message || 'Some error occured while getting the customer data!',
@@ -91,7 +91,7 @@ exports.update = async (req, res, next) => {
             message: 'Customer record was updated successfuly!',
             customer: newData.data()
         });        
-    } catch (error) {
+    } catch (err) {
         res.status(400).send({
             error: 400,
             message: err.message || 'Some error occured while updating the customer!',
@@ -106,7 +106,7 @@ exports.delete = async (req, res, next) => {
         res.send({
             message: 'The customer was deleted successfuly!'
         });
-    } catch (error) {
+    } catch (err) {
         res.status(400).send({
             error: 400,
             message: err.message || 'Some error occured while deleting the customer!',

@@ -11,7 +11,7 @@ exports.create = async (req, res, next) => {
             message: 'Your new product was saved successfuly!',
             product: data
         });
-    } catch (error) {
+    } catch (err) {
         res.status(400).send({
             error: 400,
             message: err.message || 'Some error occured while creating the product!',
@@ -26,8 +26,7 @@ exports.getProducts = async (req, res, next) => {
         const productsArray = [];
         if(data.empty) {
             res.status(404).send({
-                error: 404,
-                message: err.message || 'No product record was found!',
+                message: 'No product record was found!'
             });
         }else {
             data.forEach(doc => {
@@ -45,7 +44,7 @@ exports.getProducts = async (req, res, next) => {
             });
             res.send(productsArray);
         }
-    } catch (error) {
+    } catch (err) {
         res.status(400).send({
             error: 400,
             message: err.message || 'Some error occured while getting the products!',
@@ -61,12 +60,12 @@ exports.getProduct = async (req, res, next) => {
         if(!data.exists) {
             res.status(404).send({
                 error: 404,
-                message: err.message || 'Product with the given ID not found! try again.',
+                message: 'Product with the given ID not found! try again.'
             });
         }else {
             res.send(data.data());
         }
-    } catch (error) {
+    } catch (err) {
         res.status(400).send({
             error: 400,
             message: err.message || 'Some error occured while getting the product!',
@@ -86,7 +85,7 @@ exports.update = async (req, res, next) => {
             message: 'Product record was updated successfuly!',
             product: newData.data()
         });        
-    } catch (error) {
+    } catch (err) {
         res.status(400).send({
             error: 400,
             message: err.message || 'Some error occured while updating the product!',
@@ -101,7 +100,7 @@ exports.delete = async (req, res, next) => {
         res.send({
             message: 'The product was deleted successfuly!'
         });
-    } catch (error) {
+    } catch (err) {
         res.status(400).send({
             error: 400,
             message: err.message || 'Some error occured while deleting the product!',
